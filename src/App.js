@@ -4,20 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
-// CONTEXTS
-
-// leagues
-// api: https://www.thesportsdb.com/api/v1/json/1/search_all_leagues.php?c=Usa
-// const LeagueContext = createContext();
-// const LeagueContextProvider = props => {
-//   const [ league, setLeague ] = useState('');
-//   return (
-//     <LeagueContext.Provider value={{ league, setLeague }}>
-//       {props.children}
-//     </LeagueContext.Provider>
-//   )
-// }
-
 // teams
 // api: https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=NBA
 const TeamsContext = createContext();
@@ -27,15 +13,16 @@ const TeamsContextProvider = props => {
   const GET_URL = 'https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=NBA'
 
   useEffect(() => {
+    console.log('fetching all teams...');
     // fetch
     fetch(GET_URL)
     .then(res => res.json())
     .then(data => {
-      console.log('fetch data', data);
+      console.log('>> fetched data', data);
       setTeams(data.teams);
     })
     .catch(error => {
-      console.log('fetch error', error);
+      console.log('>> fetch error', error);
     })
   }, [GET_URL])
 
@@ -51,7 +38,26 @@ const TeamsContextProvider = props => {
 // api (lookup): https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=133604
 const TeamContext = createContext();
 const TeamContextProvider = props => {
+  //const [ teamId, setTeamId ] = useState('');
   const [ team, setTeam ] = useState('');
+
+  // const GET_URL = `https://www.thesportsdb.com/api/v1/json/1/lookupteam.php?id=${teamId}`
+
+  // useEffect(() => {
+  //   if(teamId !== "") {
+  //     console.log('fetching team data...');
+  //     fetch(GET_URL)
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         console.log('>> fetched data', data.teams);
+  //         setTeam(data);
+  //       })
+  //       .catch(error => {
+  //         console.log('>> fetch error', error);
+  //       })
+  //     }
+  // }, [GET_URL, teamId])
+
   return (
     <TeamContext.Provider value={{ team, setTeam }}>
       {props.children}
@@ -76,27 +82,38 @@ const Nav = () => {
 // teams list
 const TeamsList = () => {
   const { teams } = useContext(TeamsContext);
-  //const { setTeam } = useContext(TeamContext);
+  const { setTeam } = useContext(TeamContext);
   return (
     <>
-    <Autocomplete
-      id="sports-teams-options"
-      options={teams}
-      getOptionLabel={option => option.strTeam}
-      style={{ width: 300 }}
-      renderInput={params => (
-        <TextField {...params} label="Search Team" variant="outlined" fullWidth />
-      )}
-    />
+        {teams &&
+          <Autocomplete
+            id="sports-teams-options"
+            options={teams}
+            getOptionLabel={option => option.strTeam}
+            onChange={(event, teamObj) => {
+              console.log('>> teamObj:', teamObj);
+              setTeam(teamObj);
+            }}
+            style={{ width: 300 }}
+            renderInput={params => (
+              <TextField {...params} label="Search Team" variant="outlined" fullWidth />
+            )}
+          />
+        }
     </>
   )
 }
 
-// teams page
+// team page
 const Team = () => {
-
+  const { team } = useContext(TeamContext);
   return (
     <>
+      <div className="team">
+        {team && 
+          <pre>{JSON.stringify(team, null, 2)}</pre>
+        }
+      </div>
     </>
   )
 }
@@ -107,7 +124,7 @@ function App() {
         <TeamsContextProvider>
           <TeamContextProvider>
             <Nav />
-            <main>
+            <main className="main">
               <Team />
             </main>
           </TeamContextProvider>
