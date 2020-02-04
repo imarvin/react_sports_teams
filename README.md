@@ -1,3 +1,27 @@
+This is a simple react app that uses a sports api to query for NBA teams.
+
+Preview app here: https://imarvin.github.io/react_sports_teams/
+
+To Do:
+
+1. Add filter for country, leagues, and sports.
+2. Improve UI/UX.
+
+## Quick Start
+
+```
+Make sure you have Node.js installed (https://nodejs.org).
+
+Open terminal and run the following commands inside the app folder(/react_itunes_movies)
+
+1. npm install 
+2. npm start
+
+Your browser should automatically open to the following url: 
+http://localhost:3000
+
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
