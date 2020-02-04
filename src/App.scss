@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: left;
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  padding: 1rem;
+  width: 100%;
+
+  &__search-input,
+  &__social {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+
+  &__social {
+    margin-right: 2rem;
+    text-align: right;
+    align-content: flex-end;
+    justify-content: flex-end;
+    
+    &-ul {
+      list-style: none;
+
+      > li {
+        display: inline-block;
+        margin: .5rem;
+
+        > a {
+          color: #212121;
+          font-size: 1rem;
+          text-decoration: none;
+
+          > svg {
+            font-size: 2rem;
+          }
+        }
+
+      }
+    }
+  }
+}
+.main {
+  
+}
+.team {
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    width: 100%;
+    max-height: 40rem;
+  }
+
+  &__details,
+  &__description {
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: .25rem;
+    box-shadow: 5px 1px 10px #000;
+  }
+
+  &__badge {
+    max-width: 8rem;
+    margin: 0 auto;
+  }
+
+  &__details {
+
+    > ul {
+      list-style: none;
+      margin: 1rem 0;
+
+      > li {
+        line-height: 1.5rem;
+      }
+    }
+  }
+
+  &__description { 
+    max-width: 40rem;
+
+    p {
+      max-height: 100%;
+      overflow: hidden;
+      line-height: 1.5rem;
+    }
+  }
+
+  &__banner {
+    opacity: .5;
+  }
+}
